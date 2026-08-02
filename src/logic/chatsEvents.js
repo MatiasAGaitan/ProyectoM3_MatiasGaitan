@@ -1,5 +1,6 @@
-import { chatState, getCurrentTime, addMessageToActiveCharacter, getActiveMessages } from "./chatState.js"
+import { chatState, getCurrentTime, addMessageToCharacter, getMessagesByCharacter  } from "./chatState.js"
 import { renderMessages, showTypingMessage, hideTypingMessage } from "./renderMessages.js"
+import { sendMessageToCharacter } from "../services/chatApi.js"
 
 
 export function setupChatEvents(characters){
@@ -40,7 +41,7 @@ export function setupChatEvents(characters){
         })
     })
     
-    form.addEventListener('submit', (event) => {
+    form.addEventListener('submit', async (event) => {
         event.preventDefault()
         
         const text = input.value.trim()
@@ -49,46 +50,71 @@ export function setupChatEvents(characters){
             return
         }
         
+        const activeCharacterId = chatState.activeCharacterId
+        
         input.disabled = true
         submitButton.disabled = true
         
-        addMessageToActiveCharacter({
+        addMessageToCharacter(activeCharacterId, {
             role: 'user',
             text,
             time: getCurrentTime()
         })
         
-        const activeMessages = getActiveMessages()
+        const activeMessages = getMessagesByCharacter(activeCharacterId)
         
         renderMessages(messages, activeMessages)
         
         input.value = ''
         
         const activeCharacter = characters.find((character) => {
-            return character.id === chatState.activeCharacterId
+            return character.id === activeCharacterId
         })
         
         showTypingMessage(messages,activeCharacter.name)
         
-        setTimeout(() => {
+        try {
+            
+            const data = await sendMessageToCharacter(activeCharacterId, activeMessages)
             
             hideTypingMessage(messages)
             
-            addMessageToActiveCharacter({
+            addMessageToCharacter(activeCharacterId, {
                 role: 'assistant',
-                text: 'Respuesta simulada del personaje. Después esto va a venir desde Gemini.',
+                text: data.reply,
                 time: getCurrentTime()
             })
             
-            const updatedMessages = getActiveMessages()
+            const updatedMessages = getMessagesByCharacter(activeCharacterId)
             
-            renderMessages(messages, updatedMessages)
+            if (chatState.activeCharacterId === activeCharacterId) {
+                renderMessages(messages, updatedMessages)
+            }           
+            
+        } catch (error) {
+            
+            console.error(error)
+
+            hideTypingMessage(messages)
+            
+            addMessageToCharacter(activeCharacterId, {
+                role: 'assistant',
+                text: 'No puedo responder ahora. Intenta de nuevo en unos segundos',
+                time: getCurrentTime()
+            })
+            
+            const updatedMessages = getMessagesByCharacter(activeCharacterId)
+            
+            if (chatState.activeCharacterId === activeCharacterId) {
+                renderMessages(messages, updatedMessages)
+            }
+            
+        } finally{
             
             input.disabled = false
             submitButton.disabled = false
             input.focus()
-            
-        }, 800)
+        }
     })
 }
 

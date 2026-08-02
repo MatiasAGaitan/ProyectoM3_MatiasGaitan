@@ -1,5 +1,8 @@
+import { chatState } from "./chatState.js"
+
 export function setupHomeEvents() {
     const infoButtons = document.querySelectorAll('.character-info-button');
+    const chatButtons = document.querySelectorAll('.character-button')
     
     infoButtons.forEach((button) => {
         button.addEventListener('click', () => {
@@ -7,4 +10,10 @@ export function setupHomeEvents() {
             card.classList.toggle('show-info');
         });
     });
+    
+    chatButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            chatState.activeCharacterId = button.dataset.character
+        })
+    })
 }

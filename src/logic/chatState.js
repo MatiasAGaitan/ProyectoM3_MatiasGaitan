@@ -27,16 +27,16 @@ export function getCurrentTime() {
     })
 }
 
-export function addMessageToActiveCharacter(message) {
-    const activeMessages = chatState.messagesByCharacter[chatState.activeCharacterId]
+export function addMessageToCharacter(characterId, message) {
+    const characterMessages = chatState.messagesByCharacter[characterId]
     
-    activeMessages.push(message)
+    characterMessages.push(message)
     
-    if (activeMessages.length > MAX_MESSAGES_PER_CHARACTER) {
-        activeMessages.splice(0, activeMessages.length - MAX_MESSAGES_PER_CHARACTER)
+    if (characterMessages.length > MAX_MESSAGES_PER_CHARACTER) {
+        characterMessages.splice(0, characterMessages.length - MAX_MESSAGES_PER_CHARACTER)
     }
 }
 
-export function getActiveMessages() {
-    return chatState.messagesByCharacter[chatState.activeCharacterId]
+export function getMessagesByCharacter(characterId) {
+    return chatState.messagesByCharacter[characterId]
 }

@@ -28,7 +28,7 @@ export function renderHome() {
                     <p class="character-role">${character.role}</p>
                   </div>
     
-                  <a class="character-button" href="/chat" data-link>
+                  <a class="character-button" href="/chat" data-link data-character="${character.id}">
                     Hablar ↗
                   </a>
                 </div>
