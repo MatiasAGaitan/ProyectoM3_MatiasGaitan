@@ -478,7 +478,6 @@ a:hover {
 }
 
 .chat-menu-button {
-    margin-left: auto;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     padding: 0.7rem 0.9rem;
@@ -492,6 +491,22 @@ a:hover {
     border-color: var(--color-primary);
     color: var(--color-primary);
 }
+
+.chat-clear-button {
+    margin-left: auto;
+    border: 0;
+    padding: 0.4rem;
+    background: transparent;
+    color: var(--color-text);
+    font-size: 1.35rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.chat-clear-button:hover {
+    color: var(--color-primary);
+}
+
 
 .chat-header-image {
     width: 2.8rem;
@@ -737,6 +752,10 @@ body.light-theme .message-row.user .message-bubble p {
     
     .chat-menu-button {
         display: none;
+    }
+    
+    .chat-clear-button {
+        font-size: 1.6rem;
     }
     
     .chat-character-list {

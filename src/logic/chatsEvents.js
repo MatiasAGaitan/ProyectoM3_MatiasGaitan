@@ -1,4 +1,4 @@
-import { chatState, getCurrentTime, addMessageToCharacter, getMessagesByCharacter  } from "./chatState.js"
+import { chatState, getCurrentTime, addMessageToCharacter, getMessagesByCharacter, clearMessagesByCharacter  } from "./chatState.js"
 import { renderMessages, showTypingMessage, hideTypingMessage } from "./renderMessages.js"
 import { sendMessageToCharacter } from "../services/chatApi.js"
 
@@ -14,9 +14,18 @@ export function setupChatEvents(characters){
     const submitButton = form.querySelector('button[type="submit"]')
     const menuButton = document.querySelector('.chat-menu-button')
     const sidebar = document.querySelector('.chat-sidebar')
+    const clearButton = document.querySelector('.chat-clear-button')
     
     menuButton.addEventListener('click', () => {
         sidebar.classList.toggle('open')
+    })
+    
+    clearButton.addEventListener('click', () => {
+        clearMessagesByCharacter(chatState.activeCharacterId)
+        
+        const activeMessages = getMessagesByCharacter(chatState.activeCharacterId)
+        
+        renderMessages(messages, activeMessages)
     })
     
     characterButtons.forEach((button) => {
@@ -94,7 +103,7 @@ export function setupChatEvents(characters){
         } catch (error) {
             
             console.error(error)
-
+            
             hideTypingMessage(messages)
             
             addMessageToCharacter(activeCharacterId, {

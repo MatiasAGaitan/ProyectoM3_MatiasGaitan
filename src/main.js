@@ -18,13 +18,32 @@ document.addEventListener("DOMContentLoaded", ()=>{
 })
 
 const themeButton = document.getElementById('theme-toggle');
+const THEME_STORAGE_KEY = 'chatweb_theme'
+
+function updateThemeButtonText() {
+    if (document.body.classList.contains('light-theme')) {
+        themeButton.textContent = 'Dark mode'
+    } else {
+        themeButton.textContent = 'Light mode'
+    }
+}
+
+const savedTheme = localStorage.getItem(THEME_STORAGE_KEY)
+
+if (savedTheme === 'light') {
+    document.body.classList.add('light-theme')
+}
+
+updateThemeButtonText()
 
 themeButton.addEventListener('click', () => {
-    document.body.classList.toggle('light-theme');
-
+    document.body.classList.toggle('light-theme')
+    
     if (document.body.classList.contains('light-theme')) {
-        themeButton.textContent = 'Dark mode';
+        localStorage.setItem(THEME_STORAGE_KEY, 'light')
     } else {
-        themeButton.textContent = 'Light mode';
+        localStorage.setItem(THEME_STORAGE_KEY, 'dark')
     }
-});
+    
+    updateThemeButtonText()
+})

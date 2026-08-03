@@ -40,8 +40,10 @@ export function renderChat() {
                         <h2>${activeCharacter.name}</h2>
                         <p>${activeCharacter.role}</p>
                     </div>
-    
+
+                    <button class="chat-clear-button" type="button" aria-label="Borrar historial">🗑️</button>
                     <button class="chat-menu-button" type="button">Personajes</button>
+                    
                 </div>
     
                 <div class="chat-messages" id="messages"></div>
@@ -56,6 +58,6 @@ export function renderChat() {
     
     const messages = document.getElementById('messages')
     renderMessages(messages,activeMessages)
-
+    
     setupChatEvents(characters)
 }
