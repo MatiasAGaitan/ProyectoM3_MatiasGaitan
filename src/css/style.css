@@ -45,7 +45,7 @@ body.light-theme {
 
 body {
     margin: 0;
-    height: 100vh;
+    height: 100dvh;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -61,7 +61,7 @@ header {
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 0;
-    padding: 1rem 1rem 0 1rem ;
+    padding: calc(1rem + env(safe-area-inset-top)) 1rem 0 1rem;
     border-bottom: 1px solid var(--color-border);
     box-shadow: 0 0.5rem 1.5rem var(--color-shadow);
 }
@@ -585,6 +585,7 @@ body.light-theme .message-row.user .message-bubble p {
     width: 100%;
     border-top: 1px solid var(--color-border);
     padding: 1rem;
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom));
     gap: 0.8rem;
     background: rgba(2, 6, 23, 0.12);
 }
