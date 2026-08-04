@@ -1,4 +1,5 @@
 import { navigateTo, router } from "./router/router.js";
+import { updateThemeButtonText, getSavedTheme, saveTheme, applySavedTheme } from "./utils/theme.js";
 
 document.addEventListener("click", (event)=>{
     const link = event.target.closest('a[data-link]')
@@ -18,32 +19,19 @@ document.addEventListener("DOMContentLoaded", ()=>{
 })
 
 const themeButton = document.getElementById('theme-toggle');
-const THEME_STORAGE_KEY = 'chatweb_theme'
 
-function updateThemeButtonText() {
-    if (document.body.classList.contains('light-theme')) {
-        themeButton.textContent = 'Dark mode'
-    } else {
-        themeButton.textContent = 'Light mode'
-    }
-}
+applySavedTheme()
 
-const savedTheme = localStorage.getItem(THEME_STORAGE_KEY)
-
-if (savedTheme === 'light') {
-    document.body.classList.add('light-theme')
-}
-
-updateThemeButtonText()
+updateThemeButtonText(themeButton)
 
 themeButton.addEventListener('click', () => {
     document.body.classList.toggle('light-theme')
     
     if (document.body.classList.contains('light-theme')) {
-        localStorage.setItem(THEME_STORAGE_KEY, 'light')
+        saveTheme('light')
     } else {
-        localStorage.setItem(THEME_STORAGE_KEY, 'dark')
+        saveTheme('dark')
     }
     
-    updateThemeButtonText()
+    updateThemeButtonText(themeButton)
 })

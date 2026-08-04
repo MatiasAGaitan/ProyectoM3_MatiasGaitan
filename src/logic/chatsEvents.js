@@ -1,6 +1,7 @@
 import { chatState, getCurrentTime, addMessageToCharacter, getMessagesByCharacter, clearMessagesByCharacter  } from "./chatState.js"
 import { renderMessages, showTypingMessage, hideTypingMessage } from "./renderMessages.js"
 import { sendMessageToCharacter } from "../services/chatApi.js"
+import { renderChatStatus } from "./renderChatStatus.js"
 
 
 export function setupChatEvents(characters){
@@ -9,6 +10,7 @@ export function setupChatEvents(characters){
     const headerTitle = document.querySelector('.chat-header h2')
     const headerRole = document.querySelector('.chat-header p')
     const messages = document.getElementById('messages')
+    const statusContainer = document.getElementById('chat-status')
     const form = document.getElementById('chat-form')
     const input = document.getElementById('message-input')
     const submitButton = form.querySelector('button[type="submit"]')
@@ -16,18 +18,20 @@ export function setupChatEvents(characters){
     const sidebar = document.querySelector('.chat-sidebar')
     const clearButton = document.querySelector('.chat-clear-button')
     
+    
+    // limpiar historial de chat
+    clearButton.addEventListener('click', () => {
+        clearMessagesByCharacter(chatState.activeCharacterId)
+        const activeMessages = getMessagesByCharacter(chatState.activeCharacterId)
+        renderMessages(messages, activeMessages)
+    })
+    
+    //hacer aparecer la barra de personajes 
     menuButton.addEventListener('click', () => {
         sidebar.classList.toggle('open')
     })
     
-    clearButton.addEventListener('click', () => {
-        clearMessagesByCharacter(chatState.activeCharacterId)
-        
-        const activeMessages = getMessagesByCharacter(chatState.activeCharacterId)
-        
-        renderMessages(messages, activeMessages)
-    })
-    
+    //detecta el boton personaje que fue seleccionado, lo toma y abre su ventada de chat con sus datos 
     characterButtons.forEach((button) => {
         button.addEventListener('click', () => {
             const character = characters.find((item) => item.id === button.dataset.character)
@@ -50,6 +54,7 @@ export function setupChatEvents(characters){
         })
     })
     
+    // maneja el evento cuando se envia el input
     form.addEventListener('submit', async (event) => {
         event.preventDefault()
         
@@ -63,6 +68,7 @@ export function setupChatEvents(characters){
         
         input.disabled = true
         submitButton.disabled = true
+        renderChatStatus(statusContainer,'loading',activeCharacterId)
         
         addMessageToCharacter(activeCharacterId, {
             role: 'user',
@@ -74,19 +80,15 @@ export function setupChatEvents(characters){
         
         renderMessages(messages, activeMessages)
         
-        input.value = ''
-        
         const activeCharacter = characters.find((character) => {
             return character.id === activeCharacterId
         })
         
-        showTypingMessage(messages,activeCharacter.name)
+        input.value = ''
         
         try {
-            
             const data = await sendMessageToCharacter(activeCharacterId, activeMessages)
-            
-            hideTypingMessage(messages)
+            renderChatStatus(statusContainer,'success')
             
             addMessageToCharacter(activeCharacterId, {
                 role: 'assistant',
@@ -95,28 +97,13 @@ export function setupChatEvents(characters){
             })
             
             const updatedMessages = getMessagesByCharacter(activeCharacterId)
-            
             if (chatState.activeCharacterId === activeCharacterId) {
                 renderMessages(messages, updatedMessages)
             }           
             
         } catch (error) {
-            
             console.error(error)
-            
-            hideTypingMessage(messages)
-            
-            addMessageToCharacter(activeCharacterId, {
-                role: 'assistant',
-                text: 'No puedo responder ahora. Intenta de nuevo en unos segundos',
-                time: getCurrentTime()
-            })
-            
-            const updatedMessages = getMessagesByCharacter(activeCharacterId)
-            
-            if (chatState.activeCharacterId === activeCharacterId) {
-                renderMessages(messages, updatedMessages)
-            }
+            renderChatStatus(statusContainer,'error')
             
         } finally{
             

@@ -34,7 +34,6 @@ characters.forEach((character) => {
     ]
 })
 
-
 export function getCurrentTime() {
     const now = new Date()
     

@@ -589,6 +589,20 @@ a:hover {
     font-style: italic;
 }
 
+.chat-status {
+    min-height: 1.5rem;
+    padding: 0 1.1rem;
+    color: var(--color-muted);
+    font-size: 0.85rem;
+}
+
+.chat-status.loading {
+    font-style: italic;
+}
+
+.chat-status.error {
+    color: #f87171;
+}
 
 body.light-theme .message-row.user .message-bubble p {
     color: #ffffff;

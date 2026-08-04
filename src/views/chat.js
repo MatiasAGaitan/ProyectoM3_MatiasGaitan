@@ -47,6 +47,7 @@ export function renderChat() {
                 </div>
     
                 <div class="chat-messages" id="messages"></div>
+                <div class="chat-status" id="chat-status"></div>
     
                 <form class="chat-form" id="chat-form">
                     <input id="message-input" type="text" placeholder="Escribí tu mensaje..." autocomplete="off"/>
