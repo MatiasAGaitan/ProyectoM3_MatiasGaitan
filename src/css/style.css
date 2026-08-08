@@ -708,7 +708,7 @@ body.light-theme .message-row.user .message-bubble p {
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
-    overflow: hidden;
+    overflow-y: auto;
 }
 
 .about-header {
@@ -917,10 +917,6 @@ body.light-theme .message-row.user .message-bubble p {
     
     .footer-github-link {
         font-size: 0.7rem;
-    }
-    
-    .about-view {
-        overflow-y: auto;
     }
     
     .about-header h2 {
