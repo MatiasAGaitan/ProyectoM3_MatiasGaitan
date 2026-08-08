@@ -1,4 +1,4 @@
-export function renderChatStatus(statusContainer, status, characterName = '') {
+export function updateChatStatus(statusContainer, status, characterName = '') {
     if (status === 'idle' || status === 'success') {
         statusContainer.textContent = ''
         statusContainer.className = 'chat-status'

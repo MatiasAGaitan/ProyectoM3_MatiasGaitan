@@ -16,6 +16,8 @@
     --color-message-character-text: #000000;
     --color-message-user-bg: var(--color-primary);
     --color-message-user-text: var(--color-on-primary);
+    --color-message-time: #67e8f9;
+    --color-message-time-user: #0f172a;
     --color-muted: #94a3b8;
     --color-border: #1f2937;
     --color-shadow: rgba(0, 0, 0, 0.45);
@@ -37,6 +39,8 @@ body.light-theme {
     --color-message-character-text: #ffffff;
     --color-message-user-bg: #334155;
     --color-message-user-text: #ffffff;
+    --color-message-time: #64748b;
+    --color-message-time-user: #cbd5e1;
     --color-muted: #64748b;
     --color-border: #cbd5e1;
     --color-shadow: rgba(15, 23, 42, 0.1);
@@ -520,7 +524,7 @@ a:hover {
     color: var(--color-text);
     font-weight: 700;
     cursor: pointer;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
 }
 
 .chat-menu-button:hover {
@@ -606,12 +610,12 @@ a:hover {
 .message-time {
     display: block;
     margin-top: 0.4rem;
-    color: var(--color-muted);
+    color: var(--color-message-time);
     font-size: 0.7rem;
 }
 
 .message-row.user .message-time {
-    color: var(--color-on-primary);
+    color: var(--color-message-time-user);
     opacity: 0.75;
 }
 
@@ -696,6 +700,60 @@ body.light-theme .message-row.user .message-bubble p {
 .chat-form button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+/* About */
+
+.about-view {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    overflow: hidden;
+}
+
+.about-header {
+    max-width: 44rem;
+}
+
+.about-eyebrow {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    color: var(--color-primary);
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08rem;
+}
+
+.about-header h2 {
+    margin-bottom: 0.7rem;
+    color: var(--color-text);
+}
+
+.about-header p {
+    max-width: 42rem;
+}
+
+.about-content {
+    display: grid;
+    gap: 1rem;
+}
+
+.about-card {
+    padding: 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.about-card h3 {
+    margin: 0 0 0.6rem;
+    color: var(--color-text);
+    font-size: 1rem;
+}
+
+.about-card p {
+    font-size: 0.9rem;
 }
 
 /* Responsive */
@@ -792,7 +850,7 @@ body.light-theme .message-row.user .message-bubble p {
     
     .chat-menu-button {
         padding: 0.55rem 0.7rem;
-        font-size: 0.75rem;
+        font-size: 0.55rem;
     }
     
     .chat-clear-button {
@@ -860,6 +918,30 @@ body.light-theme .message-row.user .message-bubble p {
     .footer-github-link {
         font-size: 0.7rem;
     }
+    
+    .about-view {
+        overflow-y: auto;
+    }
+    
+    .about-header h2 {
+        font-size: 1.2rem;
+    }
+    
+    .about-eyebrow {
+        font-size: 0.65rem;
+    }
+    
+    .about-card {
+        padding: 0.85rem;
+    }
+    
+    .about-card h3 {
+        font-size: 0.95rem;
+    }
+    
+    .about-card p {
+        font-size: 0.78rem;
+    }
 }
 
 @media (min-width: 640px) {
@@ -896,16 +978,45 @@ body.light-theme .message-row.user .message-bubble p {
         padding: 1.5rem;
     }
     
-    .character-yoda {
-        background-position: center 10%;
+    .characters-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.2rem;
+    }
+    
+    .character-card {
+        min-height: 20rem;
+    }
+    
+    .character-card-content {
+        min-height: 17rem;
+    }
+    
+    .character-tony {
+        background-position: 30% center;
     }
     
     .character-hermione {
         background-position: center 40%;
     }
     
+    .character-yoda {
+        background-position: center 10%;
+    }
+    
     .chat-header h2 {
         font-size: 1.4rem;
+    }
+    
+    .about-view {
+        gap: 1.5rem;
+    }
+    
+    .about-content {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .about-card {
+        padding: 1.1rem;
     }
 }
 
@@ -944,6 +1055,10 @@ body.light-theme .message-row.user .message-bubble p {
     .character-card {
         background-position: center;
         min-height: 24rem;
+    }
+    
+    .character-tony {
+        background-position: 30% center;
     }
     
     .character-card-content {
@@ -1015,4 +1130,11 @@ body.light-theme .message-row.user .message-bubble p {
         justify-self: end;
     }
     
+    .about-view {
+        gap: 1.8rem;
+    }
+    
+    .about-card {
+        padding: 1.25rem;
+    }
 }

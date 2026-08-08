@@ -1,4 +1,4 @@
-import { setupHomeEvents } from "../logic/homeEvents.js"
+import { setupHomeEvents } from "../events/homeEvents.js"
 import { characters } from "../personalities/index.js"
 
 export function renderHome() {

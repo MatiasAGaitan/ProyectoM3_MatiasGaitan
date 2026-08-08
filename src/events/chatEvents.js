@@ -1,7 +1,6 @@
-import { chatState, getCurrentTime, addMessageToCharacter, getMessagesByCharacter, clearMessagesByCharacter  } from "./chatState.js"
-import { renderMessages} from "./renderMessages.js"
-import { sendMessageToCharacter } from "../services/chatApi.js"
-import { renderChatStatus } from "./renderChatStatus.js"
+import { chatState, getMessagesByCharacter, clearMessagesByCharacter } from "../utils/chatMessages.js"
+import { renderMessages } from "../utils/renderMessages.js"
+import { sendChatMessage } from "../engine/chatEngine.js"
 
 
 export function setupChatEvents(characters){
@@ -64,53 +63,14 @@ export function setupChatEvents(characters){
             return
         }
         
-        const activeCharacterId = chatState.activeCharacterId
-        
-        input.disabled = true
-        submitButton.disabled = true
-        renderChatStatus(statusContainer,'loading',activeCharacterId)
-        
-        addMessageToCharacter(activeCharacterId, {
-            role: 'user',
+        await sendChatMessage({
             text,
-            time: getCurrentTime()
+            characters,
+            messagesContainer: messages,
+            statusContainer,
+            input,
+            submitButton
         })
-        
-        const activeMessages = getMessagesByCharacter(activeCharacterId)
-        
-        renderMessages(messages, activeMessages)
-        
-        const activeCharacter = characters.find((character) => {
-            return character.id === activeCharacterId
-        })
-        
-        input.value = ''
-        
-        try {
-            const data = await sendMessageToCharacter(activeCharacterId, activeMessages)
-            renderChatStatus(statusContainer,'success')
-            
-            addMessageToCharacter(activeCharacterId, {
-                role: 'assistant',
-                text: data.reply,
-                time: getCurrentTime()
-            })
-            
-            const updatedMessages = getMessagesByCharacter(activeCharacterId)
-            if (chatState.activeCharacterId === activeCharacterId) {
-                renderMessages(messages, updatedMessages)
-            }           
-            
-        } catch (error) {
-            console.error(error)
-            renderChatStatus(statusContainer,'error')
-            
-        } finally{
-            
-            input.disabled = false
-            submitButton.disabled = false
-            input.focus()
-        }
     })
 }
 

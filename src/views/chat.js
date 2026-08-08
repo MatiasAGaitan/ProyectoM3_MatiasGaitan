@@ -1,7 +1,7 @@
 import { characters } from "../personalities/index.js"
-import { setupChatEvents } from "../logic/chatsEvents.js"
-import { chatState } from "../logic/chatState.js"
-import { renderMessages } from "../logic/renderMessages.js"
+import { setupChatEvents } from "../events/chatEvents.js"
+import { chatState } from "../utils/chatMessages.js"
+import { renderMessages } from "../utils/renderMessages.js"
 
 
 export function renderChat() {

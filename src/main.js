@@ -1,5 +1,5 @@
 import { navigateTo, router } from "./router/router.js";
-import { updateThemeButtonText, getSavedTheme, saveTheme, applySavedTheme } from "./utils/theme.js";
+import { updateThemeButtonText, saveTheme, applySavedTheme } from "./utils/theme.js";
 
 document.addEventListener("click", (event)=>{
     const link = event.target.closest('a[data-link]')

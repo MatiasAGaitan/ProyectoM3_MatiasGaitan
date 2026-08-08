@@ -1,4 +1,4 @@
-import { chatState } from "./chatState.js"
+import { chatState } from "../utils/chatMessages.js"
 
 export function setupHomeEvents() {
     const infoButtons = document.querySelectorAll('.character-info-button');
