@@ -6,7 +6,7 @@ export function renderHome() {
   app.innerHTML = `
     <section class="home-view">
       <div class="home-hero">
-        <h2 class="home-title">Conversaciones con personajes legendarios.</h2>
+        <h2 class="home-title">Habla con tu personaje favorito.</h2>
     
         <p class="home-description">
           Elegí un personaje y empezá una conversación impulsada por inteligencia artificial.

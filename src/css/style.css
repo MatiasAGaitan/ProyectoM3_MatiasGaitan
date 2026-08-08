@@ -61,7 +61,7 @@ header {
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 0;
-    padding: calc(1rem + env(safe-area-inset-top)) 1rem 0 1rem;
+    padding: 1rem;
     border-bottom: 1px solid var(--color-border);
     box-shadow: 0 0.5rem 1.5rem var(--color-shadow);
 }
@@ -181,6 +181,41 @@ a {
 }
 
 a:hover {
+    color: var(--color-primary-dark);
+}
+
+.site-footer {
+    flex-shrink: 0;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    gap: 0.8rem;
+    padding: 0.3rem;
+    border-top: 0;
+    background: transparent;
+    color: var(--color-muted);
+    font-size: 0.7rem;
+}
+
+.footer-text {
+    margin: 0;
+    color: var(--color-muted);
+    line-height: 1.4;
+    text-align: center;
+}
+
+.footer-text span {
+    color: var(--color-text);
+}
+
+.footer-github-link {
+    flex-shrink: 0;
+    color: var(--color-primary);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.footer-github-link:hover {
     color: var(--color-primary-dark);
 }
 
@@ -485,6 +520,7 @@ a:hover {
     color: var(--color-text);
     font-weight: 700;
     cursor: pointer;
+    font-size: 0.7rem;
 }
 
 .chat-menu-button:hover {
@@ -517,13 +553,13 @@ a:hover {
 
 .chat-header h2 {
     margin: 0 0 0.2rem;
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 .chat-header p {
     margin: 0;
     color: var(--color-card-accent);
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
 }
@@ -658,6 +694,38 @@ body.light-theme .message-row.user .message-bubble p {
 }
 
 /* Responsive */
+
+@media (max-width: 395px) {
+    .home-view {
+        overflow-y: auto;
+    }
+    
+    .character-card {
+        min-height: 12rem;
+    }
+    
+    .chat-header {
+        gap: 0.5rem;
+        padding: 0.8rem;
+    }
+    
+    .chat-header h2 {
+        font-size: 1rem;
+    }
+    
+    .chat-header p {
+        font-size: 0.7rem;
+    }
+    
+    .chat-menu-button {
+        padding: 0.55rem 0.7rem;
+        font-size: 0.75rem;
+    }
+    
+    .chat-clear-button {
+        font-size: 1.2rem;
+    }
+}
 
 @media (min-width: 640px) {
     header {

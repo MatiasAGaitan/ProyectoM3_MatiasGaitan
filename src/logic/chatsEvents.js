@@ -1,5 +1,5 @@
 import { chatState, getCurrentTime, addMessageToCharacter, getMessagesByCharacter, clearMessagesByCharacter  } from "./chatState.js"
-import { renderMessages, showTypingMessage, hideTypingMessage } from "./renderMessages.js"
+import { renderMessages} from "./renderMessages.js"
 import { sendMessageToCharacter } from "../services/chatApi.js"
 import { renderChatStatus } from "./renderChatStatus.js"
 

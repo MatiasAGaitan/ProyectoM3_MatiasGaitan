@@ -16,7 +16,7 @@ export function renderChat() {
     app.innerHTML =  `
         <section class="chat">
             <aside class="chat-sidebar">
-                <h2 class="chat-sidebar-title">Personajes</h2>
+                <h2 class="chat-sidebar-title">▼ Personajes</h2>
     
                 <div class="chat-character-list">
                     ${characters.map((character) => `
@@ -42,7 +42,7 @@ export function renderChat() {
                     </div>
 
                     <button class="chat-clear-button" type="button" aria-label="Borrar historial">🗑️</button>
-                    <button class="chat-menu-button" type="button">Personajes</button>
+                    <button class="chat-menu-button" type="button">▼ Personajes</button>
                     
                 </div>
     
